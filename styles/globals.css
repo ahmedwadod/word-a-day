@@ -6,3 +6,17 @@ body {
 	background-color: white;
 	font-size: 16px;
 }
+
+.text-shadow {
+	box-shadow: 2px 2px 4px rgba(136, 14, 79, 0.50);
+	outline: none;
+}
+
+.text-shadow:focus{
+	outline: 1px #880E4F solid;
+}
+
+.postcard-shadow{
+	box-shadow: 4px 4px 10px rgba(136, 14, 79, 0.25);
+	 border: 1px rgba(136, 14, 79, 0.50) solid;
+}

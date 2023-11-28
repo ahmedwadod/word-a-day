@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Feed from '@components/Feed'
 
 export default function Home() {
 	return (
@@ -11,6 +11,7 @@ export default function Home() {
 					<span className='ext-pink-500 text-[1.5rem] font-bold'>#courage</span>
 				</p>
 			</div>
+			<Feed />
 		</>
 	)
 }
