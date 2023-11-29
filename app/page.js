@@ -1,6 +1,8 @@
 import Feed from '@/components/Feed'
 
-export default function Home() {
+export default async function Home() {
+	const response = await fetch("http://localhost:3000/api/word", { next: { revalidate: 120 } });
+	const { word } = await response.json()
 	return (
 		<>
 			<div className=' mt-24 flex flex-col place-items-center'>
@@ -8,7 +10,7 @@ export default function Home() {
 				<p className='mt-10 sm:max-w-[48rem] text-center text-pink-500 text-xl px-2 sm:text-2xl font-medium'>
 					Word a Day is a social platform where you share your thoughts and ideas based on the daily word.
 					Join us and share your thoughts about today’s word {' '}
-					<span className='ext-pink-500 text-[1.5rem] font-bold'>#courage</span>
+					<span className='ext-pink-500 text-[1.5rem] font-bold'>#{word}</span>
 				</p>
 			</div>
 			<Feed />
