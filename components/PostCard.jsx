@@ -7,7 +7,7 @@ export default function PostCard({ post }) {
 				<Image alt="profile" src={post.user.image} width={56} height={32} className="rounded-full object-cover" />
 				<div className="flex flex-col gap-1">
 					<h3 className="text-pink-600 text-xl font-semibold">{post.user.name}</h3>
-					<h4 className="text-neutral-500 text-base font-medium ">{post.user.username}</h4>
+					<h4 className="text-neutral-500 text-base font-medium ">@{post.user.username}</h4>
 				</div>
 			</div>
 

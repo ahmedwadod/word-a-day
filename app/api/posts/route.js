@@ -1,13 +1,48 @@
 import prisma from "@/prisma/db";
 import { postSchema } from "@/utils/validationSchemas";
 
-export async function GET() {
-	const posts = await prisma.post.findMany({
-		include: {
-			word: true,
-			user: true
-		}
-	});
+export async function GET(req) {
+	const params = new URL(req.url).searchParams;
+	let posts;
+	if (params.has('keyword')) {
+		posts = await prisma.post.findMany({
+			where: {
+				OR: [
+					{
+						user: {
+							username: {
+								contains: params.get('keyword')
+							}
+						}
+					},
+					{
+						word: {
+							word: {
+								contains: params.get('keyword')
+							}
+						}
+					}
+				]
+			},
+			include: {
+				user: true,
+				word: true
+			},
+			orderBy: {
+				createdAt: 'desc'
+			}
+		});
+	} else {
+		posts = await prisma.post.findMany({
+			include: {
+				word: true,
+				user: true
+			},
+			orderBy: {
+				createdAt: 'desc'
+			}
+		});
+	}
 	return Response.json(posts, { status: 200 });
 }
 

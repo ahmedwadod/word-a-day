@@ -1,7 +1,7 @@
 import Feed from '@/components/Feed'
 
 export default async function Home() {
-	const response = await fetch("http://localhost:3000/api/word", { next: { revalidate: 120 } });
+	const response = await fetch("http://localhost:3000/api/word", { next: { revalidate: 0 } });
 	const { word } = await response.json();
 	const postsRes = await fetch("http://localhost:3000/api/posts", { cache: 'no-store' });
 	const posts = await postsRes.json();
