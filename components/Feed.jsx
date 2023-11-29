@@ -16,7 +16,7 @@ export default function Feed({ initalPosts }) {
 		if (tm) clearTimeout(tm);
 
 		tm = setTimeout(async () => {
-			const posts = await fetch(`http://localhost:3000/api/posts?keyword=${e.target.value}`, { cache: 'no-store' });
+			const posts = await fetch(`/api/posts?keyword=${e.target.value}`, { cache: 'no-store' });
 			setPosts(await posts.json());
 		}, 200);
 	}

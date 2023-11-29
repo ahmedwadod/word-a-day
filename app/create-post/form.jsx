@@ -1,6 +1,7 @@
 'use client';
 import { useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function PostForm({ word, wordId }) {
@@ -8,12 +9,13 @@ export default function PostForm({ word, wordId }) {
 	const [isSubmiting, setSubmiting] = useState(false);
 	const [error, setError] = useState('');
 	const { data: session } = useSession();
+	const router = useRouter();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		setSubmiting(true);
 		setError('');
-		const res = await fetch("http://localhost:3000/api/posts", {
+		const res = await fetch("/api/posts", {
 			method: 'POST',
 			body: JSON.stringify({
 				userId: session.user.id,
@@ -31,7 +33,7 @@ export default function PostForm({ word, wordId }) {
 			setError(body.body._errors[0]);
 		} else if (res.status == 201) {
 			setError('');
-			window.location.href = 'http://localhost:3000';
+			router.push("/profile", { reload: true })
 		} else {
 			setError('Unkown error happened');
 		}
