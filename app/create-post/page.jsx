@@ -2,7 +2,7 @@ import AuthGuard from "@/components/AuthGuard";
 import PostForm from "./form";
 
 export default async function CreatePost() {
-	const response = await fetch("http://localhost:3000/api/word", { next: { revalidate: 120 } });
+	const response = await fetch("http://localhost:3000/api/word", { cache: 'no-store' });
 	const { word, id } = await response.json();
 
 	return (
