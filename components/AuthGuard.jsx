@@ -14,7 +14,7 @@ export default function AuthGuard({ children }) {
 
 	return (
 		<>
-			{session?.user ? children : <NeedToSignIn />}
+			{session === undefined ? <div /> : session?.user ? children : <NeedToSignIn />}
 		</>
 	);
 }

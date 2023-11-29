@@ -2,7 +2,10 @@ import Feed from '@/components/Feed'
 
 export default async function Home() {
 	const response = await fetch("http://localhost:3000/api/word", { next: { revalidate: 120 } });
-	const { word } = await response.json()
+	const { word } = await response.json();
+	const postsRes = await fetch("http://localhost:3000/api/posts", { cache: 'no-store' });
+	const posts = await postsRes.json();
+
 	return (
 		<>
 			<div className=' mt-24 flex flex-col place-items-center'>
@@ -13,7 +16,7 @@ export default async function Home() {
 					<span className='ext-pink-500 text-[1.5rem] font-bold'>#{word}</span>
 				</p>
 			</div>
-			<Feed />
+			<Feed initalPosts={posts} />
 		</>
 	)
 }

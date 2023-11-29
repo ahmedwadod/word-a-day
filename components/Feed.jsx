@@ -1,6 +1,6 @@
 import PostCard from "./PostCard";
 
-export default function Feed() {
+export default function Feed({ initalPosts }) {
 
 	return (
 		<>
@@ -10,11 +10,9 @@ export default function Feed() {
 			</div>
 
 			<div className="grid grid-cols-1 sm:grid-cols-3 gap-4 px-8">
-				<PostCard />
-				<PostCard />
-				<PostCard />
-				<PostCard />
-				<PostCard />
+				{initalPosts.map((post) =>
+					<PostCard key={post.id} post={post} />
+				)}
 			</div>
 		</>
 	)

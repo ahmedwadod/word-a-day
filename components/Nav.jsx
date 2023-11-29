@@ -27,7 +27,7 @@ export default function Nav() {
 		<nav className="flex justify-between px-4 pt-2">
 			<Link href="/"> <Image alt="Logo" src="/logo.svg" width={40} height={40} /> </Link>
 			<div className="flex gap-2">
-				{!isLoggedIn ?
+				{session === undefined ? <div /> : !isLoggedIn ?
 					providers && Object.values(providers).map((provider) => (
 						<FilledButton key={provider.id} onClick={() => signIn(provider.id)}>Sign In</FilledButton>
 					))
