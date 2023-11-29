@@ -8,6 +8,9 @@ export default async function MyProfile() {
 	const user = await prisma.user.findUnique({
 		where: {
 			email: session.user?.email
+		},
+		orderBy: {
+			createdAt: 'desc'
 		}
 	});
 

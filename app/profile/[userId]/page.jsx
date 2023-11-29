@@ -5,6 +5,9 @@ export default async function MyProfile({ params }) {
 	const user = await prisma.user.findUnique({
 		where: {
 			id: parseInt(params.userId)
+		},
+		orderBy: {
+			createdAt: 'desc'
 		}
 	});
 

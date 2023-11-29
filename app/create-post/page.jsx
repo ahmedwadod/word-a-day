@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import AuthGuard from "@/components/AuthGuard";
 import { getWord } from "../api/word/route";
 import PostForm from "./form";

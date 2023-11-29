@@ -1,18 +1,10 @@
+export const dynamic = 'force-dynamic';
+
 import Feed from '@/components/Feed'
-import prisma from '@/prisma/db';
 import { getWord } from './api/word/route';
 
 export default async function Home() {
 	const { word } = await getWord();
-	const initPosts = await prisma.post.findMany({
-		include: {
-			word: true,
-			user: true
-		},
-		orderBy: {
-			createdAt: 'desc'
-		}
-	});
 
 	return (
 		<>
@@ -24,7 +16,7 @@ export default async function Home() {
 					<span className='ext-pink-500 text-[1.5rem] font-bold'>#{word}</span>
 				</p>
 			</div>
-			<Feed initalPosts={initPosts} />
+			<Feed />
 		</>
 	)
 }

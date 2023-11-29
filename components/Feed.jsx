@@ -1,15 +1,23 @@
 'use client';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PostCard from "./PostCard";
 
-export default function Feed({ initalPosts }) {
+export default function Feed() {
 	const [posts, setPosts] = useState(null);
 	let tm;
+
+	useEffect(() => {
+		(async () => {
+			const posts = await fetch(`/api/posts`, { cache: 'no-store' });
+			setPosts(await posts.json());
+		})();
+	}, [])
 
 	const handleChange = async (e) => {
 		if (e.target.value == '') {
 			if (tm) clearTimeout(tm);
-			setPosts(null);
+			const posts = await fetch(`/api/posts`, { cache: 'no-store' });
+			setPosts(await posts.json());
 			return;
 		}
 
@@ -28,12 +36,9 @@ export default function Feed({ initalPosts }) {
 					placeholder="Search for a person or a word..." />
 			</div>
 
-			<div className="grid grid-cols-1 sm:grid-cols-3 gap-4 px-8">
-				{posts ?
+			<div className="grid grid-cols-1 sm:grid-cols-3 gap-4 px-8 pb-4">
+				{posts &&
 					posts.map((post) =>
-						<PostCard key={post.id} post={post} />
-					) :
-					initalPosts.map((post) =>
 						<PostCard key={post.id} post={post} />
 					)}
 			</div>
