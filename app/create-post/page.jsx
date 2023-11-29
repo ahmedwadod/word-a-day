@@ -1,9 +1,9 @@
 import AuthGuard from "@/components/AuthGuard";
+import { getWord } from "../api/word/route";
 import PostForm from "./form";
 
 export default async function CreatePost() {
-	const response = await fetch("http://localhost:3000/api/word", { cache: 'no-store' });
-	const { word, id } = await response.json();
+	const { word, id } = await getWord();
 
 	return (
 		<AuthGuard>

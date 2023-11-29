@@ -4,7 +4,7 @@ import prisma from '@/prisma/db';
 import isDiffMoreThan24Hours from '@/utils/DiffInTime';
 import { words } from '@/utils/words';
 
-export async function GET() {
+export async function getWord() {
 	const lastWord = await prisma.wordOfDay.findFirst({
 		orderBy: {
 			createdAt: 'desc'
@@ -19,9 +19,12 @@ export async function GET() {
 			}
 		});
 
-		return Response.json(newWord)
+		return newWord;
 	}
 
-	return Response.json(lastWord)
+	return lastWord;
+}
 
+export async function GET() {
+	return Response.json(await getWord());
 }

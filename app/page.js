@@ -1,10 +1,18 @@
 import Feed from '@/components/Feed'
+import prisma from '@/prisma/db';
+import { getWord } from './api/word/route';
 
 export default async function Home() {
-	const response = await fetch("http://localhost:3000/api/word", { next: { revalidate: 0 } });
-	const { word } = await response.json();
-	const postsRes = await fetch("http://localhost:3000/api/posts", { cache: 'no-store' });
-	const posts = await postsRes.json();
+	const { word } = await getWord();
+	const initPosts = await prisma.post.findMany({
+		include: {
+			word: true,
+			user: true
+		},
+		orderBy: {
+			createdAt: 'desc'
+		}
+	});
 
 	return (
 		<>
@@ -16,7 +24,7 @@ export default async function Home() {
 					<span className='ext-pink-500 text-[1.5rem] font-bold'>#{word}</span>
 				</p>
 			</div>
-			<Feed initalPosts={posts} />
+			<Feed initalPosts={initPosts} />
 		</>
 	)
 }
