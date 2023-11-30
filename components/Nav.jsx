@@ -8,6 +8,9 @@ import UnfilledButton from "./UnfilledButton";
 
 import { signIn, signOut, getProviders, useSession } from 'next-auth/react';
 import { useRouter } from "next/navigation";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { faArrowRightFromBracket, faPlus, faUser } from "@fortawesome/free-solid-svg-icons";
 
 export default function Nav() {
 	const [dropDown, setDropDown] = useState(false);
@@ -29,14 +32,23 @@ export default function Nav() {
 			<div className="flex gap-2">
 				{session === undefined ? <div /> : !isLoggedIn ?
 					providers && Object.values(providers).map((provider) => (
-						<FilledButton key={provider.id} onClick={() => signIn(provider.id)}>Sign In</FilledButton>
+						<FilledButton key={provider.id} onClick={() => signIn(provider.id)}>
+							Sign in with
+							<FontAwesomeIcon icon={faGoogle} />
+						</FilledButton>
 					))
 					: (
 						<>
 							{/* Desktop Nav */}
 							<div className="sm:flex sm:gap-2 hidden">
-								<FilledButton onClick={() => router.push('/create-post')}>Post</FilledButton>
-								<UnfilledButton onClick={() => signOut()}>Sign Out</UnfilledButton>
+								<FilledButton onClick={() => router.push('/create-post')}>
+									Post
+									<FontAwesomeIcon icon={faPlus} />
+								</FilledButton>
+								<UnfilledButton onClick={() => signOut()}>
+									Sign Out
+									<FontAwesomeIcon icon={faArrowRightFromBracket} />
+								</UnfilledButton>
 								<Link href="/profile" className="flex">
 									<Image alt="profile" src={session.user.image} width={56} height={56} className="rounded-full object-cover" />
 								</Link>
@@ -51,10 +63,12 @@ export default function Nav() {
 								{dropDown &&
 									(
 										<div className="absolute top-20 right-2 bg-white rounded-lg min-w-[20rem] flex flex-col py-2">
-											<Link className="py-2 px-4 hover:bg-neutral-300 hover:text-pink-600 font-normal text-lg" href="/profile" onClick={() => setDropDown(false)}>
+											<Link className="py-2 px-4 hover:bg-neutral-300 hover:text-pink-600 font-normal text-lg flex place-items-center gap-2" href="/profile" onClick={() => setDropDown(false)}>
+												<FontAwesomeIcon icon={faUser} />
 												My Profile
 											</Link>
-											<Link className="py-2 px-4 hover:bg-neutral-300 text-pink-600 font-normal text-lg" href="/create-post" onClick={() => setDropDown(false)}>
+											<Link className="py-2 px-4 hover:bg-neutral-300 text-pink-600 font-normal text-lg flex place-items-center gap-2" href="/create-post" onClick={() => setDropDown(false)}>
+												<FontAwesomeIcon icon={faPlus} />
 												Create a Post
 											</Link>
 
@@ -63,7 +77,8 @@ export default function Nav() {
 											<button onClick={() => {
 												signOut();
 												setDropDown(false);
-											}} className="py-2 px-4 text-start focus:bg-neutral-300 focus:text-pink-600 font-normal text-lg" href="/create-post">
+											}} className="py-2 px-4 text-start focus:bg-neutral-300 focus:text-pink-600 font-normal text-lg flex place-items-center gap-2" href="/create-post">
+												<FontAwesomeIcon icon={faArrowRightFromBracket} />
 												Sign Out
 											</button>
 										</div>
