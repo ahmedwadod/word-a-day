@@ -26,7 +26,8 @@ export async function GET(req) {
 			},
 			include: {
 				user: true,
-				word: true
+				word: true,
+				likes: true
 			},
 			orderBy: {
 				createdAt: 'desc'
@@ -36,7 +37,8 @@ export async function GET(req) {
 		posts = await prisma.post.findMany({
 			include: {
 				word: true,
-				user: true
+				user: true,
+				likes: true
 			},
 			orderBy: {
 				createdAt: 'desc'

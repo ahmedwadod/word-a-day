@@ -17,7 +17,8 @@ export default async function MyProfile({ params }) {
 		},
 		include: {
 			user: true,
-			word: true
+			word: true,
+			likes: true
 		},
 		orderBy: {
 			createdAt: 'desc'

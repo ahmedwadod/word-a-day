@@ -17,6 +17,7 @@ model User {
     username  String
     image     String
     posts     Post[]
+    likes     Like[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 }
@@ -36,6 +37,17 @@ model Post {
     body      String    @db.VarChar(250)
     user      User      @relation(fields: [userId], references: [id])
     word      WordOfDay @relation(fields: [wordId], references: [id])
+    likes     Like[]
     createdAt DateTime  @default(now())
     updatedAt DateTime  @updatedAt
+}
+
+model Like {
+    id        Int      @id @default(autoincrement())
+    userId    Int
+    postId    Int
+    user      User     @relation(fields: [userId], references: [id])
+    post      Post     @relation(fields: [postId], references: [id])
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
 }
